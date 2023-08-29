@@ -1,0 +1,955 @@
+<!doctype html>
+<html lang="es">
+<head>
+<link rel="stylesheet" type="text/css" href="base.css" />
+<link rel="stylesheet" type="text/css" href="content.css" />
+<link rel="stylesheet" type="text/css" href="nav.css" />
+<meta http-equiv="content-type" content="text/html;  charset=utf-8" />
+<title>Fracciones equivalentes | FRACCIONES </title>
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<meta name="author" content="María José Novillo Rodríguez" />
+<link rel="license" type="text/html" href="http://creativecommons.org/licenses/by-sa/4.0/" />
+<meta name="generator" content="eXeLearning 2.8.1 - exelearning.net" />
+<!--[if lt IE 9]><script type="text/javascript" src="exe_html5.js"></script><![endif]-->
+<script type="text/javascript" src="exe_jquery.js"></script>
+<script type="text/javascript" src="common_i18n.js"></script>
+<script type="text/javascript" src="common.js"></script>
+<link rel="stylesheet" type="text/css" href="geogebra-activity.css" />
+<script type="text/javascript" src="geogebra-activity.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet"  type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap" rel="stylesheet" type="text/css">
+<link href="https://fonts.cdnfonts.com/css/opendyslexic" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"  type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet"  type="text/css">
+
+
+<style>
+  
+  .z-index {
+    z-index: 999;
+  }
+
+  .select-container {
+    display: inline-block;
+    position: relative;
+    z-index: 999;
+  }
+
+  .font-button {
+    padding: 8px 16px;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 8px;
+    text-align: center;
+    text-decoration: none;
+    background-color: white;
+    color: black;
+    z-index: 999;
+  }
+
+  .fontButtonContainer {
+     z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* establece el wrap para que los botones se distribuyan en varias líneas */
+    gap: 5px; /* ajusta el espacio entre los botones */
+    position: static; /* fija la barra de botones en la página: static para que aparezca en la parte superior, fixed para que quede flotando */
+    top: 40px; /* fija la barra de botones en la parte superior de la página */
+    left: 0; /* fija la barra de botones en el margen izquierdo */
+    right: 0; /* fija la barra de botones en el margen derecho */
+    margin: auto; /* centra la barra de botones horizontalmente */
+  }
+    
+  /* Estilo para el desplegable */
+  select {
+    padding: 8px 4px;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 6px;
+    text-align: center;
+    text-decoration: none;
+    background-color: white;
+  }
+  
+  select option {
+  text-align: left;
+  }
+  
+</style>
+
+<script>
+
+// BatexeGo v3 Juan José de Haro 
+
+// Define los textos que se ven en pantalla. Reemplazar el texto entre comillas
+
+  // Textos del menú desplegable
+    const defaultText = 'Parámetros por defecto:'; //Descripción de la opción por defecto
+    const standardText = 'Fuente estándar'; // Fuente original del documento
+    
+    const dyslexicDesc = 'Dislexia:'; // Descripción de la opción OpenDyslexic  
+    const dyslexicText = 'OpenDyslexic'; 
+    
+    const hyperlegibleDesc = 'Deficiencias visuales:'; // Descripción de la opción Atkinson Hyperlegible
+    const hyperlegibleText = 'Atkinson Hyperlegible'; 
+    
+    const highLegibilityDesc = 'Alta legibilidad:'; // Descripción de las opciones de alta legibilidad
+    const opensansText = 'OpenSans'; 
+    const robotoText = 'Roboto'; 
+    const latoText = 'Lato'; 
+    const montserratText = 'Montserrat'; 
+
+  // Botones aumentar y disminuir fuente
+    const increaseFontText = 'A+'; // Botón para incrementar la fuente
+    const increaseFontTitle = 'Incrementa la fuente'; // Texto emergente al pasar el ratón
+    
+    const decreaseFontText = 'A-'; // Botón para reducir la fuente
+    const decreaseFontTitle = 'Reduce la fuente'; // Texto emergente al pasar el ratón
+
+  // Botón para traducir
+    const translateText = '🌐'; // Texto para el botón de traducción de Google
+    const translateTitle = 'Traduce la página'; // Texto emergente al pasar el ratón
+
+  // Botón para leer / detener la lectura en voz alta
+    let readText = 'Leer'; // Botón para leer en voz alta el contenido de la página
+    const readTextTitle ='Lee en voz alta la selección o la página entera'; // Texto emergente al pasar el ratón
+    
+    const stopText = 'Detener'; // Texto del botón para detener la lectura
+    const stopTextTitle = 'Detiene la lectura'; // Texto emergente al pasar el ratón
+  
+  // Botones para que los botones estén siempre visibles
+    let floatingFix = 'Fijar'; // Texto del botón flotante cuando está sobre el texto
+    let floatingFixTitle = 'Fija la barra de botones en la parte superior'; // Texto emergente al pasar el ratón
+    
+    let floatingFloat = 'Flotar'; //Texto del botón flotante cuando está fijo en la parte superior
+    let floatingFloatTitle = 'La barra permanecerá siempre visible';
+  
+  
+  // Enlace +Info
+    const infoText = '+Info'; // Texto del enlace +Info
+    const infoTextLink = 'https://batexego.bilateria.org'; // Destino del enlace de +Info
+
+// Fin 
+  
+
+  readText = `${readText} (${document.documentElement.lang})`; //Se añade el idioma al botón Leer
+  
+
+  let originalFont;
+  let currentFontSize;
+  let originalFontSize;
+  let isReading = false;
+  let utterance = new SpeechSynthesisUtterance();
+  let googleTranslateWidgetVisible = localStorage.getItem('googleTranslateWidgetVisible');
+
+  function setFont(font) {
+  document.body.style.fontFamily = font;
+  localStorage.setItem('font', font);
+  }
+
+  function setFontSize(size) {
+  currentFontSize = parseInt(window.getComputedStyle(document.body).getPropertyValue('font-size'));
+  currentFontSize += size;
+  document.body.style.fontSize = currentFontSize + 'px';
+  localStorage.setItem('fontSize', currentFontSize + 'px');
+  }
+  
+  
+
+function toggleGoogleTranslateWidget() {
+  if (!googleTranslateWidgetVisible) {
+    const script = document.createElement('script');
+    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    script.id = 'google-translate-script';
+    document.head.appendChild(script);
+    
+    const googleTranslateElement = document.createElement('div');
+    googleTranslateElement.id = 'google_translate_element';
+    googleTranslateElement.style.position = 'fixed';
+    googleTranslateElement.style.top = '0';
+    googleTranslateElement.style.right = '0';
+    googleTranslateElement.style.zIndex = '1000';
+    document.body.appendChild(googleTranslateElement);
+
+    window.googleTranslateElementInit = function() {
+      new google.translate.TranslateElement({pageLanguage: 'auto', layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT}, 'google_translate_element');
+    };
+
+    googleTranslateWidgetVisible = true;
+    
+  } else {
+    const script = document.getElementById('google-translate-script');
+    script.remove();
+    
+    const googleTranslateElement = document.getElementById('google_translate_element');
+    googleTranslateElement.remove();
+
+    googleTranslateWidgetVisible = false;
+  }
+  localStorage.setItem('googleTranslateWidgetVisible',googleTranslateWidgetVisible);
+}
+
+
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+
+    googleTranslateWidgetVisible = JSON.parse(localStorage.getItem('googleTranslateWidgetVisible'));
+  if(googleTranslateWidgetVisible) {
+    googleTranslateWidgetVisible = false;
+    toggleGoogleTranslateWidget();
+  }
+
+    
+  
+    originalFont = window.getComputedStyle(document.body).getPropertyValue('font-family');
+    localStorage.setItem('originalFont', originalFont);
+    let font = localStorage.getItem('font');
+    if (!font) {
+    font = originalFont;
+    }
+    document.body.style.fontFamily = font;
+
+    let fontSize = localStorage.getItem('fontSize');
+    originalFontSize = window.getComputedStyle(document.body).getPropertyValue('font-size');
+    localStorage.setItem('originalFontSize', originalFontSize);
+    if (!fontSize) {
+    fontSize = originalFontSize
+    localStorage.setItem('fontSize', fontSize);
+    }
+    document.body.style.fontSize = fontSize;
+
+    const fontButtonContainer = document.createElement('div');
+    fontButtonContainer.classList.add('fontButtonContainer'); 
+    
+    const selectContainer = document.createElement('div');
+    selectContainer.classList.add('select-container');
+    const select = document.createElement('select');
+    select.classList.add('z-index');
+    const standardOption = document.createElement('option');
+    standardOption.value = 'standard';
+    standardOption.text = standardText;
+
+    const defaultFontOptGroup = document.createElement('optgroup');
+    defaultFontOptGroup.label = defaultText;
+    defaultFontOptGroup.appendChild(standardOption);
+
+    select.appendChild(defaultFontOptGroup);
+
+
+    const dyslexicOption = document.createElement('option');
+    dyslexicOption.value = 'dyslexic';
+    dyslexicOption.text = dyslexicText;
+    select.add(dyslexicOption);
+
+    const dyslexicOptGroup = document.createElement('optgroup');
+    dyslexicOptGroup.label = dyslexicDesc;
+    dyslexicOptGroup.appendChild(dyslexicOption);
+    select.appendChild(dyslexicOptGroup);
+
+    const hyperlegibleOption = document.createElement('option');
+    hyperlegibleOption.value = 'hyperlegible';
+    hyperlegibleOption.text = hyperlegibleText;
+    select.add(hyperlegibleOption);
+
+    const hyperlegibleOptGroup = document.createElement('optgroup');
+    hyperlegibleOptGroup.label = hyperlegibleDesc;
+    hyperlegibleOptGroup.appendChild(hyperlegibleOption);
+    select.appendChild(hyperlegibleOptGroup);
+
+    const opensansOption = document.createElement('option');
+    opensansOption.value = 'Open Sans';
+    opensansOption.text = opensansText;
+    select.add(opensansOption);
+
+    const robotoOption = document.createElement('option');
+    robotoOption.value = 'Roboto';
+    robotoOption.text = robotoText;
+    select.add(robotoOption);
+
+    const latoOption = document.createElement('option');
+    latoOption.value = 'Lato';
+    latoOption.text = latoText;
+    select.add(latoOption);
+
+    const montserratOption = document.createElement('option');
+    montserratOption.value = 'Montserrat';
+    montserratOption.text = montserratText;
+    select.add(montserratOption);  
+    
+
+    const highLegibilityOptGroup = document.createElement('optgroup');
+    highLegibilityOptGroup.label = highLegibilityDesc;
+    highLegibilityOptGroup.appendChild(latoOption);
+    highLegibilityOptGroup.appendChild(montserratOption);
+    highLegibilityOptGroup.appendChild(opensansOption);
+    highLegibilityOptGroup.appendChild(robotoOption);
+    
+    
+    
+    select.appendChild(highLegibilityOptGroup);
+
+    // Seleccionar la opción correspondiente al cargar la página
+    if (font === originalFont) { // Nueva condición
+    select.selectedIndex = 0; // Nueva línea
+    } else if (font === 'OpenDyslexic') {
+    select.selectedIndex = 1;
+    } else if (font === 'Atkinson Hyperlegible') {
+    select.selectedIndex = 2;
+    } else if (font === 'Roboto') {
+    select.selectedIndex = 6;
+    } else if (font === 'Lato') {
+    select.selectedIndex = 3;
+    } else if (font === 'Open Sans') {
+    select.selectedIndex = 5;
+    } else if (font === 'Montserrat') {
+    select.selectedIndex = 4;
+    }
+
+    select.addEventListener('change', () => {
+    const font = select.value;
+    if (font === 'standard') {
+    setFont(originalFont);
+    fontSize = originalFontSize;
+    localStorage.setItem('fontSize', fontSize);
+    document.body.style.fontSize = localStorage.getItem('originalFontSize');
+    } else if (font === 'dyslexic') {
+    setFont('OpenDyslexic');
+    } else if (font === 'hyperlegible') {
+    setFont('Atkinson Hyperlegible');
+    } else if (font === 'Open Sans') {
+    setFont('Open Sans');
+    } else if (font === 'Roboto') {
+    setFont('Roboto');
+    } else if (font === 'Lato') {
+    setFont('Lato');
+    }  else if (font === 'Montserrat') {
+    setFont('Montserrat');
+    }
+    });
+
+    selectContainer.appendChild(select);
+    fontButtonContainer.appendChild(selectContainer);
+    
+
+    const increaseFontButton = document.createElement('button');
+    increaseFontButton.classList.add('font-button');
+    increaseFontButton.textContent = increaseFontText;
+    increaseFontButton.setAttribute('title', increaseFontTitle);
+    increaseFontButton.addEventListener('click', () => setFontSize(1));
+    fontButtonContainer.appendChild(increaseFontButton);
+
+    const decreaseFontButton = document.createElement('button');
+    decreaseFontButton.classList.add('font-button');
+    decreaseFontButton.textContent = decreaseFontText;
+    decreaseFontButton.setAttribute('title', decreaseFontTitle);
+    decreaseFontButton.addEventListener('click', () => setFontSize(-1));
+    fontButtonContainer.appendChild(decreaseFontButton);
+    
+    const translateButton = document.createElement('button');
+    translateButton.classList.add('font-button');
+    translateButton.textContent = translateText;
+    translateButton.setAttribute('title', translateTitle);
+    translateButton.addEventListener('click', toggleGoogleTranslateWidget);
+    fontButtonContainer.appendChild(translateButton);
+
+  // Botón para leer en voz alta
+    const readButton = document.createElement('button');
+    readButton.classList.add('font-button');
+    readButton.textContent = readText;
+    readButton.setAttribute('title', readTextTitle);
+    
+    readButton.addEventListener('click', () => {
+    let selectedText = window.getSelection().toString();
+    let text = '';
+    let lang = document.documentElement.lang;
+    if (selectedText !== '') {
+      text = selectedText;
+      let selectedNode = window.getSelection().anchorNode;
+      while (selectedNode && selectedNode.nodeType !== Node.ELEMENT_NODE) {
+        selectedNode = selectedNode.parentNode;
+      }
+      if (selectedNode) {
+        const selectedLang = selectedNode.getAttribute('lang');
+        if (selectedLang) {
+          lang = selectedLang;
+        }
+      }
+    } else {
+      text = document.body.innerText;
+      const bodyLang = document.body.getAttribute('lang');
+      if (bodyLang) {
+        lang = bodyLang;
+      }
+    }
+
+    utterance.lang = lang;
+    utterance.text = text;
+
+    if (!isReading) {
+      isReading = true;
+      readButton.textContent = `${stopText} (${lang})`;
+      readButton.setAttribute('title', stopTextTitle);
+      speechSynthesis.speak(utterance);
+    } else {
+      isReading = false;
+      readButton.textContent = readText;
+      readButton.setAttribute('title', readTextTitle);
+      speechSynthesis.cancel();
+    }
+
+    utterance.addEventListener('end', () => {
+      isReading = false;
+      readButton.textContent = readText;
+      readButton.setAttribute('title', readTextTitle);
+    });
+  });  
+    
+    fontButtonContainer.appendChild(readButton);
+    
+  // Botón para que la barra esté siempre visible
+    const floatingButton = document.createElement('button');
+    floatingButton.classList.add('font-button');
+    floatingButton.textContent = floatingFloat;
+    floatingButton.setAttribute('title', floatingFloatTitle);
+    floatingButton.addEventListener('click', () => {
+    if (floatingButton.textContent === floatingFix) {
+      fontButtonContainer.style.position = 'static';
+      floatingButton.textContent = floatingFloat;
+      floatingButton.setAttribute('title', floatingFloatTitle);
+      localStorage.setItem('floatState', 'static');
+    } else {
+      fontButtonContainer.style.position = 'fixed';
+      floatingButton.textContent = floatingFix;
+      floatingButton.setAttribute('title', floatingFixTitle);
+      localStorage.setItem('floatState', 'fixed');
+    }
+  });
+
+    
+
+    let floatState = localStorage.getItem('floatState');
+    if (!floatState) {
+      floatState = 'static';
+      floatingButton.textContent = floatingFix;
+      floatingButton.setAttribute('title', floatingFixTitle);
+    }
+    if (floatState === 'fixed') {
+      fontButtonContainer.style.position = 'fixed';
+      floatingButton.textContent = floatingFix;
+      floatingButton.setAttribute('title', floatingFixTitle);
+    } else {
+      fontButtonContainer.style.position = 'static';
+      floatingButton.textContent = floatingFloat;
+      floatingButton.setAttribute('title', floatingFloatTitle);
+    }
+    
+    localStorage.setItem('floatState', floatState);
+    
+  fontButtonContainer.appendChild(floatingButton);
+
+
+    const infoLink = document.createElement('a');
+    infoLink.textContent = infoText;
+    infoLink.href = infoTextLink;
+    infoLink.target = '_blank';
+    infoLink.style.marginLeft = '8px';
+    infoLink.style.fontSize = '12px';
+    fontButtonContainer.appendChild(infoLink);
+
+    
+    infoLink.classList.add('z-index');
+
+    document.body.insertBefore(fontButtonContainer, document.body.firstChild);
+   
+  });
+  
+  
+
+</script>
+</head>
+<body class="exe-web-site exe-auto-math" id="exe-node-10"><script type="text/javascript">document.body.className+=" js"</script>
+<div id="content">
+<p id="skipNav"><a href="#main" class="sr-av">Saltar la navegación</a></p>
+<header id="header"  style="background-image: url(pie-charts-7408997_1280%20copia.png); background-repeat: no-repeat;"><div id="headerContent">FRACCIONES</div></header>
+<nav id="siteNav">
+<ul>
+   <li><a href="index.html" class="daddy main-node">LAS FRACCIONES EN 2º DE LA ESO</a></li>
+   <li class="current-page-parent"><a href="actividades.html" class="current-page-parent daddy">Actividades</a>
+   <ul>
+      <li><a href="claves_para_empezar.html" class="no-ch">Claves para empezar</a></li>
+      <li><a href="concepto_de_fraccin.html" class="no-ch">Concepto de fracción</a></li>
+      <li><a href="fracciones_propias_e_impropias.html" class="no-ch">Fracciones propias e impropias</a></li>
+      <li><a href="comparacin_de_fracciones.html" class="no-ch">Comparación de fracciones</a></li>
+      <li id="active"><a href="fracciones_equivalentes.html" class="active no-ch">Fracciones equivalentes</a></li>
+      <li><a href="operaciones_con_fracciones.html" class="no-ch">Operaciones con fracciones</a></li>
+      <li><a href="problemas_con_fracciones.html" class="no-ch">Problemas con fracciones</a></li>
+   </ul>
+   </li>
+   <li><a href="autoevaluacin.html" class="no-ch">Autoevaluación</a></li>
+</ul>
+</nav>
+<div id='topPagination'>
+<nav class="pagination noprt">
+<a href="comparacin_de_fracciones.html" class="prev"><span><span>&laquo; </span>Anterior</span></a> <span class="sep">| </span><a href="operaciones_con_fracciones.html" class="next"><span>Siguiente<span> &raquo;</span></span></a>
+</nav>
+</div>
+<div id="main-wrapper">
+<section id="main">
+<header id="nodeDecoration"><h1 id="nodeTitle">Fracciones equivalentes</h1></header>
+<article class="iDevice_wrapper textIdevice em_iDevice" id="id8">
+<div class="iDevice emphasis1" >
+<header class="iDevice_header iDevice_header_noIcon"><h1 class="iDeviceTitle">Fracciones equivalentes</h1></header>
+<div class="iDevice_inner">
+<div class="iDevice_content_wrapper">
+<div id="ta8_138_2" class="block iDevice_content">
+<div class="exe-text"><div class="iDevice_inner">
+<div class="iDevice_content_wrapper">
+<section class="question"><form name="multi-choice-form-38_2" action="#" onsubmit="return false" class="activity-form">
+<h1 class="js-sr-av">Pregunta</h1>
+<div id="taquestion38_2" class="block question iDevice_content">
+<p><span style="font-size: medium;"><span style="color: #008000;"></span><span style="color: #000000;"><b>¿Qué fracciones equivalentes están representadas gráfic<span style="color: #000000;">amente?</span></b></span></span></p>
+<p><span style="font-size: medium; color: #008000;"><b>1)</b></span><span style="color: #008000;"> </span></p>
+<p><span style="color: #008000;"><img src="fra14.gif.png" alt="" width="247" height="100" /></span></p>
+<span style="font-size: medium;"></span></div>
+<section class="iDevice_answers">
+<h1 class="js-sr-av">Respuestas</h1>
+<section class="iDevice_answer">
+<p class="iDevice_answer-field js-required"><label for="i38_5" class="sr-av"><a href="#answer-38_5">Opción 1</a></label><input type="radio" name="option38_2" id="i38_5" onclick="$exe.getFeedback(0,4,'38_2','multi')" /></p>
+<div class="iDevice_answer-content" id="answer-38_5">
+<div id="taans38_5" class="block iDevice_content"><span style="font-size: medium;"><b>1/4 = 2/8</b></span></div>
+</div>
+</section>
+<section class="iDevice_answer">
+<p class="iDevice_answer-field js-required"><label for="i38_160" class="sr-av"><a href="#answer-38_160">Opción 2</a></label><input type="radio" name="option38_2" id="i38_160" onclick="$exe.getFeedback(1,4,'38_2','multi')" /></p>
+<div class="iDevice_answer-content" id="answer-38_160">
+<div id="taans38_160" class="block iDevice_content"><span style="font-size: medium;"><b>4/1 = 8/2</b></span></div>
+</div>
+</section>
+<section class="iDevice_answer">
+<p class="iDevice_answer-field js-required"><label for="i38_163" class="sr-av"><a href="#answer-38_163">Opción 3</a></label><input type="radio" name="option38_2" id="i38_163" onclick="$exe.getFeedback(2,4,'38_2','multi')" /></p>
+<div class="iDevice_answer-content" id="answer-38_163">
+<div id="taans38_163" class="block iDevice_content"><span style="font-size: medium;"><b>4/4 = 2/8</b></span></div>
+</div>
+</section>
+<section class="iDevice_answer">
+<p class="iDevice_answer-field js-required"><label for="i38_166" class="sr-av"><a href="#answer-38_166">Opción 4</a></label><input type="radio" name="option38_2" id="i38_166" onclick="$exe.getFeedback(3,4,'38_2','multi')" /></p>
+<div class="iDevice_answer-content" id="answer-38_166">
+<div id="taans38_166" class="block iDevice_content"><span style="font-size: medium;"><b>3/4 = 6/10</b></span></div>
+</div>
+</section>
+</section>
+<section class="iDevice_feedbacks js-feedback">
+<h1 class="js-sr-av">Retroalimentación</h1>
+<section id="sa0b38_2" class="feedback js-hidden">
+<div id="taf38_5" class=" iDevice_content"><span style="font-size: medium;"><b>¡Correcto!</b></span><br /><span style="font-size: medium;"><b>1/4 = 2/8</b></span><span style="font-size: medium;"><b></b></span><span style="font-size: medium;"></span><span style="font-size: medium;"></span></div>
+</section>
+<section id="sa1b38_2" class="feedback js-hidden">
+<div id="taf38_160" class=" iDevice_content">
+<div id="sa2b37_143" class="feedback" style="display: block;">
+<div id="taf37_153" style="display: block; position: relative;"><span style="font-size: medium;"><b><span style="font-size: medium;">¡Incorrecto! </span></b></span> <br /><b><span style="font-size: medium;"><span style="font-size: medium;">4/1 = 8/2 → </span></span></b><span style="font-size: medium;"><span style="font-size: medium;">ambas fracciones son equivalentes, pero no son las que están representadas gráficamente.</span></span></div>
+</div>
+<span style="font-size: medium;"></span></div>
+</section>
+<section id="sa2b38_2" class="feedback js-hidden">
+<div id="taf38_163" class=" iDevice_content">
+<div id="sa2b37_143" class="feedback" style="display: block;">
+<div id="taf37_153" style="display: block; position: relative;"><span style="font-size: medium;"><b><span style="font-size: medium;">¡Incorrecto! </span></b></span> <br /><span style="font-size: medium;"><b><span style="font-size: medium;">4/4 ≠ 2/8</span></b></span></div>
+</div>
+<span style="font-size: medium;"></span></div>
+</section>
+<section id="sa3b38_2" class="feedback js-hidden">
+<div id="taf38_166" class=" iDevice_content">
+<div id="sa2b37_143" class="feedback" style="display: block;">
+<div id="taf37_153" style="display: block; position: relative;"><span style="font-size: medium;"><b><span style="font-size: medium;">¡Incorrecto! </span></b></span> <br /><span style="font-size: medium;"><b><span style="font-size: medium;">3/4 ≠ 6/10</span></b></span></div>
+</div>
+<span style="font-size: medium;"></span></div>
+</section>
+</section>
+</form>
+<section class="iDevice_solution feedback js-hidden">
+<h1>Solución</h1>
+<ol>
+<li><a href="#answer-38_5">Opción correcta</a><span> (<a href="#sa0b38_2">Retroalimentación</a>)</span></li>
+<li><a href="#answer-38_160">Incorrecto</a><span> (<a href="#sa1b38_2">Retroalimentación</a>)</span></li>
+<li><a href="#answer-38_163">Incorrecto</a><span> (<a href="#sa2b38_2">Retroalimentación</a>)</span></li>
+<li><a href="#answer-38_166">Incorrecto</a><span> (<a href="#sa3b38_2">Retroalimentación</a>)</span></li>
+</ol>
+</section>
+</section>
+<section class="question"><form name="multi-choice-form-38_169" action="#" onsubmit="return false" class="activity-form">
+<h1 class="js-sr-av">Pregunta</h1>
+<div id="taquestion38_169" class="block question iDevice_content">
+<p><span style="font-size: medium;"><span style="color: #008000;"><b>2)</b></span> </span></p>
+<p><span style="font-size: medium;"><img src="fra15.gif.png" alt="" width="272" height="39" /></span></p>
+</div>
+<section class="iDevice_answers">
+<h1 class="js-sr-av">Respuestas</h1>
+<section class="iDevice_answer">
+<p class="iDevice_answer-field js-required"><label for="i38_172" class="sr-av"><a href="#answer-38_172">Opción 1</a></label><input type="radio" name="option38_169" id="i38_172" onclick="$exe.getFeedback(0,4,'38_169','multi')" /></p>
+<div class="iDevice_answer-content" id="answer-38_172">
+<div id="taans38_172" class="block iDevice_content"><span style="font-size: medium;"><b>5/2 = 20/8</b><br /></span></div>
+</div>
+</section>
+<section class="iDevice_answer">
+<p class="iDevice_answer-field js-required"><label for="i38_176" class="sr-av"><a href="#answer-38_176">Opción 2</a></label><input type="radio" name="option38_169" id="i38_176" onclick="$exe.getFeedback(1,4,'38_169','multi')" /></p>
+<div class="iDevice_answer-content" id="answer-38_176">
+<div id="taans38_176" class="block iDevice_content"><b><span style="font-size: medium;">2/5 = 8/20</span></b></div>
+</div>
+</section>
+<section class="iDevice_answer">
+<p class="iDevice_answer-field js-required"><label for="i38_179" class="sr-av"><a href="#answer-38_179">Opción 3</a></label><input type="radio" name="option38_169" id="i38_179" onclick="$exe.getFeedback(2,4,'38_169','multi')" /></p>
+<div class="iDevice_answer-content" id="answer-38_179">
+<div id="taans38_179" class="block iDevice_content"><b><span style="font-size: medium;">2/5 = 4/10</span></b></div>
+</div>
+</section>
+<section class="iDevice_answer">
+<p class="iDevice_answer-field js-required"><label for="i38_182" class="sr-av"><a href="#answer-38_182">Opción 4</a></label><input type="radio" name="option38_169" id="i38_182" onclick="$exe.getFeedback(3,4,'38_169','multi')" /></p>
+<div class="iDevice_answer-content" id="answer-38_182">
+<div id="taans38_182" class="block iDevice_content"><b><span style="font-size: medium;">2/5 = 20/8<br /><br /></span></b></div>
+</div>
+</section>
+</section>
+<section class="iDevice_feedbacks js-feedback">
+<h1 class="js-sr-av">Retroalimentación</h1>
+<section id="sa0b38_169" class="feedback js-hidden">
+<div id="taf38_172" class=" iDevice_content">
+<div id="sa2b37_143" class="feedback" style="display: block;">
+<div id="taf37_153" style="display: block; position: relative;"><span style="font-size: medium;"><b><span style="font-size: medium;">¡Incorrecto! </span></b></span> <br /><span style="font-size: medium;"><b>5/2 = 20/8 →</b> ambas fracciones son equivalentes, pero no son las que están representadas gráficamente.</span></div>
+</div>
+</div>
+</section>
+<section id="sa1b38_169" class="feedback js-hidden">
+<div id="taf38_176" class=" iDevice_content"><span style="font-size: medium;"><b>¡Correcto!</b></span><br /><b><span style="font-size: medium;">2/5 = 8/20</span></b><br /><span style="font-size: medium;"></span></div>
+</section>
+<section id="sa2b38_169" class="feedback js-hidden">
+<div id="taf38_179" class=" iDevice_content">
+<div id="sa2b37_143" class="feedback" style="display: block;">
+<div id="taf37_153" style="display: block; position: relative;"><span style="font-size: medium;"><b><span style="font-size: medium;">¡Incorrecto! </span></b></span> <br /><span style="font-size: medium;"><b>2/5 = 4/10 →</b> </span><span style="font-size: medium;">ambas fracciones son equivalentes, pero no son las que están representadas gráficamente.</span></div>
+</div>
+<span style="font-size: medium;"></span></div>
+</section>
+<section id="sa3b38_169" class="feedback js-hidden">
+<div id="taf38_182" class=" iDevice_content">
+<div id="sa2b37_143" class="feedback" style="display: block;">
+<div id="taf37_153" style="display: block; position: relative;"><span style="font-size: medium;"><b><span style="font-size: medium;">¡Incorrecto! </span></b></span> <br /><b><span style="font-size: medium;">2/5 ≠ 20/8</span></b></div>
+</div>
+</div>
+</section>
+</section>
+</form>
+<section class="iDevice_solution feedback js-hidden">
+<h1>Solución</h1>
+<ol>
+<li><a href="#answer-38_172">Incorrecto</a><span> (<a href="#sa0b38_169">Retroalimentación</a>)</span></li>
+<li><a href="#answer-38_176">Opción correcta</a><span> (<a href="#sa1b38_169">Retroalimentación</a>)</span></li>
+<li><a href="#answer-38_179">Incorrecto</a><span> (<a href="#sa2b38_169">Retroalimentación</a>)</span></li>
+<li><a href="#answer-38_182">Incorrecto</a><span> (<a href="#sa3b38_169">Retroalimentación</a>)</span></li>
+</ol>
+</section>
+</section>
+<section class="question"><form name="multi-choice-form-38_185" action="#" onsubmit="return false" class="activity-form">
+<h1 class="js-sr-av">Pregunta</h1>
+<div id="taquestion38_185" class="block question iDevice_content">
+<p><span style="font-size: medium;"><span style="color: #008000;"><b>3)</b></span> </span></p>
+<p><span style="font-size: medium;"><img src="simpli1.jpg.png" alt="14 octavos" title="14 8" width="88" height="66" /> <img src="simpli2.jpg.png" alt="siete octavos" title="7 8" width="88" height="66" /></span></p>
+</div>
+<section class="iDevice_answers">
+<h1 class="js-sr-av">Respuestas</h1>
+<section class="iDevice_answer">
+<p class="iDevice_answer-field js-required"><label for="i38_188" class="sr-av"><a href="#answer-38_188">Opción 1</a></label><input type="radio" name="option38_185" id="i38_188" onclick="$exe.getFeedback(0,4,'38_185','multi')" /></p>
+<div class="iDevice_answer-content" id="answer-38_188">
+<div id="taans38_188" class="block iDevice_content"><span style="font-size: medium;"><b>14/8 = 7/4</b></span></div>
+</div>
+</section>
+<section class="iDevice_answer">
+<p class="iDevice_answer-field js-required"><label for="i38_191" class="sr-av"><a href="#answer-38_191">Opción 2</a></label><input type="radio" name="option38_185" id="i38_191" onclick="$exe.getFeedback(1,4,'38_185','multi')" /></p>
+<div class="iDevice_answer-content" id="answer-38_191">
+<div id="taans38_191" class="block iDevice_content"><span style="font-size: medium;"><b>8/14 = 4/7</b></span></div>
+</div>
+</section>
+<section class="iDevice_answer">
+<p class="iDevice_answer-field js-required"><label for="i38_194" class="sr-av"><a href="#answer-38_194">Opción 3</a></label><input type="radio" name="option38_185" id="i38_194" onclick="$exe.getFeedback(2,4,'38_185','multi')" /></p>
+<div class="iDevice_answer-content" id="answer-38_194">
+<div id="taans38_194" class="block iDevice_content"><span style="font-size: medium;"><b>8/4 = 3/4</b></span></div>
+</div>
+</section>
+<section class="iDevice_answer">
+<p class="iDevice_answer-field js-required"><label for="i38_197" class="sr-av"><a href="#answer-38_197">Opción 4</a></label><input type="radio" name="option38_185" id="i38_197" onclick="$exe.getFeedback(3,4,'38_185','multi')" /></p>
+<div class="iDevice_answer-content" id="answer-38_197">
+<div id="taans38_197" class="block iDevice_content"><span style="font-size: medium;"><b>14/4 = 7/4</b></span></div>
+</div>
+</section>
+</section>
+<section class="iDevice_feedbacks js-feedback">
+<h1 class="js-sr-av">Retroalimentación</h1>
+<section id="sa0b38_185" class="feedback js-hidden">
+<div id="taf38_188" class=" iDevice_content">
+<div id="sa2b37_143" class="feedback" style="display: block;">
+<div id="taf37_153" style="display: block; position: relative;"><span style="font-size: medium;"><b><span style="font-size: medium;">¡Correcto! </span></b></span> <br /><b><span style="font-size: medium;">14/8 = 7/4</span></b></div>
+</div>
+<span style="font-size: medium;"></span></div>
+</section>
+<section id="sa1b38_185" class="feedback js-hidden">
+<div id="taf38_191" class=" iDevice_content">
+<div id="sa2b37_143" class="feedback" style="display: block;">
+<div id="taf37_153" style="display: block; position: relative;"><span style="font-size: medium;"><b><span style="font-size: medium;">¡Incorrecto! </span></b></span> <br /><span style="font-size: medium;"><b>8/14 = 4/7 →</b> </span><span style="font-size: medium;">ambas fracciones son equivalentes, pero no son las que están representadas gráficamente.</span></div>
+</div>
+<span style="font-size: medium;"></span></div>
+</section>
+<section id="sa2b38_185" class="feedback js-hidden">
+<div id="taf38_194" class=" iDevice_content">
+<div id="sa2b37_143" class="feedback" style="display: block;">
+<div id="taf37_153" style="display: block; position: relative;"><span style="font-size: medium;"><b><span style="font-size: medium;">¡Incorrecto! </span></b></span> <br /><b><span style="font-size: medium;">8/4 ≠ 3/4</span></b></div>
+</div>
+<span style="font-size: medium;"></span></div>
+</section>
+<section id="sa3b38_185" class="feedback js-hidden">
+<div id="taf38_197" class=" iDevice_content"><span style="font-size: medium;"><b>¡Incorrecto!</b></span><br /><span style="font-size: medium;"><b>14/4 ≠ 7/4</b></span><span style="font-size: medium;"><b></b></span></div>
+</section>
+</section>
+</form>
+<section class="iDevice_solution feedback js-hidden">
+<h1>Solución</h1>
+<ol>
+<li><a href="#answer-38_188">Opción correcta</a><span> (<a href="#sa0b38_185">Retroalimentación</a>)</span></li>
+<li><a href="#answer-38_191">Incorrecto</a><span> (<a href="#sa1b38_185">Retroalimentación</a>)</span></li>
+<li><a href="#answer-38_194">Incorrecto</a><span> (<a href="#sa2b38_185">Retroalimentación</a>)</span></li>
+<li><a href="#answer-38_197">Incorrecto</a><span> (<a href="#sa3b38_185">Retroalimentación</a>)</span></li>
+</ol>
+</section>
+</section>
+<section class="question"><form name="multi-choice-form-38_202" action="#" onsubmit="return false" class="activity-form">
+<h1 class="js-sr-av">Pregunta</h1>
+<div id="taquestion38_202" class="block question iDevice_content">
+<p><span style="font-size: medium;"><span style="color: #008000;"><b>4)</b></span> </span><span style="font-size: medium;"></span></p>
+<p><span style="font-size: medium;"><img src="2tercios.jpg.png" alt="dos tercios" title="2 3" width="106" height="84" /> <img src="4sextos.jpg.png" alt="cuatro sextos" title="4 6" width="106" height="84" /></span></p>
+</div>
+<section class="iDevice_answers">
+<h1 class="js-sr-av">Respuestas</h1>
+<section class="iDevice_answer">
+<p class="iDevice_answer-field js-required"><label for="i38_205" class="sr-av"><a href="#answer-38_205">Opción 1</a></label><input type="radio" name="option38_202" id="i38_205" onclick="$exe.getFeedback(0,4,'38_202','multi')" /></p>
+<div class="iDevice_answer-content" id="answer-38_205">
+<div id="taans38_205" class="block iDevice_content"><span style="font-size: medium;"><b>2/3 = 4/6</b></span></div>
+</div>
+</section>
+<section class="iDevice_answer">
+<p class="iDevice_answer-field js-required"><label for="i38_209" class="sr-av"><a href="#answer-38_209">Opción 2</a></label><input type="radio" name="option38_202" id="i38_209" onclick="$exe.getFeedback(1,4,'38_202','multi')" /></p>
+<div class="iDevice_answer-content" id="answer-38_209">
+<div id="taans38_209" class="block iDevice_content"><span style="font-size: medium;"><b>3/2 = 6/4</b></span></div>
+</div>
+</section>
+<section class="iDevice_answer">
+<p class="iDevice_answer-field js-required"><label for="i38_212" class="sr-av"><a href="#answer-38_212">Opción 3</a></label><input type="radio" name="option38_202" id="i38_212" onclick="$exe.getFeedback(2,4,'38_202','multi')" /></p>
+<div class="iDevice_answer-content" id="answer-38_212">
+<div id="taans38_212" class="block iDevice_content"><span style="font-size: medium;"><b>3/4 = 2/6</b></span></div>
+</div>
+</section>
+<section class="iDevice_answer">
+<p class="iDevice_answer-field js-required"><label for="i38_215" class="sr-av"><a href="#answer-38_215">Opción 4</a></label><input type="radio" name="option38_202" id="i38_215" onclick="$exe.getFeedback(3,4,'38_202','multi')" /></p>
+<div class="iDevice_answer-content" id="answer-38_215">
+<div id="taans38_215" class="block iDevice_content"><span style="font-size: medium;"><b>6/4 = 2/3</b></span></div>
+</div>
+</section>
+</section>
+<section class="iDevice_feedbacks js-feedback">
+<h1 class="js-sr-av">Retroalimentación</h1>
+<section id="sa0b38_202" class="feedback js-hidden">
+<div id="taf38_205" class=" iDevice_content"><span style="font-size: medium;"><b>¡Correcto!</b></span><br /><span style="font-size: medium;"><b>2/3 = 4/6 </b></span></div>
+</section>
+<section id="sa1b38_202" class="feedback js-hidden">
+<div id="taf38_209" class=" iDevice_content"><span style="font-size: medium;"></span><span style="font-size: medium;"><b>¡Incorrecto!</b></span><br /><span style="font-size: medium;"><b>3/2 = 6/4 </b></span><span style="font-size: medium;"><b>→</b> </span><span style="font-size: medium;">ambas fracciones son equivalentes, pero no son las que están representadas gráficamente.</span><br /><span style="font-size: medium;"><b></b></span></div>
+</section>
+<section id="sa2b38_202" class="feedback js-hidden">
+<div id="taf38_212" class=" iDevice_content"><span style="font-size: medium;"><b>¡Incorrecto!</b></span><br /><span style="font-size: medium;"><b>3/4 ≠ 2/6</b></span> <br /><span style="font-size: medium;"><b></b></span></div>
+</section>
+<section id="sa3b38_202" class="feedback js-hidden">
+<div id="taf38_215" class=" iDevice_content"><span style="font-size: medium;"><b>¡Incorrecto!</b></span><br /><span style="font-size: medium;"><b>6/4 ≠ 2/3</b></span></div>
+</section>
+</section>
+</form>
+<section class="iDevice_solution feedback js-hidden">
+<h1>Solución</h1>
+<ol>
+<li><a href="#answer-38_205">Opción correcta</a><span> (<a href="#sa0b38_202">Retroalimentación</a>)</span></li>
+<li><a href="#answer-38_209">Incorrecto</a><span> (<a href="#sa1b38_202">Retroalimentación</a>)</span></li>
+<li><a href="#answer-38_212">Incorrecto</a><span> (<a href="#sa2b38_202">Retroalimentación</a>)</span></li>
+<li><a href="#answer-38_215">Incorrecto</a><span> (<a href="#sa3b38_202">Retroalimentación</a>)</span></li>
+</ol>
+</section>
+</section>
+<section class="question"><form name="multi-choice-form-38_333" action="#" onsubmit="return false" class="activity-form">
+<h1 class="js-sr-av">Pregunta</h1>
+<div id="taquestion38_333" class="block question iDevice_content">
+<p><span style="font-size: medium;"><span style="color: #008000;"><b>5) </b></span></span><span style="font-size: medium;"></span></p>
+<p><span style="font-size: medium;"><span style="color: #008000;"><b><img src="simpli5.jpg.png" alt="tres sextos" title="3 6" width="105" height="89" /> <img src="simpli6.jpg.png" alt="un medio" title="1 2" width="105" height="89" /></b></span></span></p>
+</div>
+<section class="iDevice_answers">
+<h1 class="js-sr-av">Respuestas</h1>
+<section class="iDevice_answer">
+<p class="iDevice_answer-field js-required"><label for="i38_336" class="sr-av"><a href="#answer-38_336">Opción 1</a></label><input type="radio" name="option38_333" id="i38_336" onclick="$exe.getFeedback(0,4,'38_333','multi')" /></p>
+<div class="iDevice_answer-content" id="answer-38_336">
+<div id="taans38_336" class="block iDevice_content"><span style="font-size: medium;"><span style="font-size: medium;"><b>6/3 = 2/1</b></span></span></div>
+</div>
+</section>
+<section class="iDevice_answer">
+<p class="iDevice_answer-field js-required"><label for="i38_340" class="sr-av"><a href="#answer-38_340">Opción 2</a></label><input type="radio" name="option38_333" id="i38_340" onclick="$exe.getFeedback(1,4,'38_333','multi')" /></p>
+<div class="iDevice_answer-content" id="answer-38_340">
+<div id="taans38_340" class="block iDevice_content"><span style="font-size: medium;"><span style="font-size: medium;"><b>3/6 = 1/2</b></span></span></div>
+</div>
+</section>
+<section class="iDevice_answer">
+<p class="iDevice_answer-field js-required"><label for="i38_343" class="sr-av"><a href="#answer-38_343">Opción 3</a></label><input type="radio" name="option38_333" id="i38_343" onclick="$exe.getFeedback(2,4,'38_333','multi')" /></p>
+<div class="iDevice_answer-content" id="answer-38_343">
+<div id="taans38_343" class="block iDevice_content"><span style="font-size: medium;"><span style="font-size: medium;"><b>2/6 = 3/6</b></span></span></div>
+</div>
+</section>
+<section class="iDevice_answer">
+<p class="iDevice_answer-field js-required"><label for="i38_346" class="sr-av"><a href="#answer-38_346">Opción 4</a></label><input type="radio" name="option38_333" id="i38_346" onclick="$exe.getFeedback(3,4,'38_333','multi')" /></p>
+<div class="iDevice_answer-content" id="answer-38_346">
+<div id="taans38_346" class="block iDevice_content"><span style="font-size: medium;"><b>4/6 = 2/6</b></span></div>
+</div>
+</section>
+</section>
+<section class="iDevice_feedbacks js-feedback">
+<h1 class="js-sr-av">Retroalimentación</h1>
+<section id="sa0b38_333" class="feedback js-hidden">
+<div id="taf38_336" class=" iDevice_content"><span style="font-size: medium;"><b>¡Incorrecto!</b></span><br /><span style="font-size: medium;"><b>6/3 = 2/1 </b></span><span style="font-size: medium;"><b>→</b> </span><span style="font-size: medium;">ambas fracciones son equivalentes, pero no son las que están representadas gráficamente.</span><br /><span style="font-size: medium;"><b></b></span></div>
+</section>
+<section id="sa1b38_333" class="feedback js-hidden">
+<div id="taf38_340" class=" iDevice_content"><span style="font-size: medium;"><b>¡Correcto!</b></span><span style="font-size: medium;"> </span><br /><span style="font-size: medium;"><b>3/6 = 1/2 </b></span><br /><span style="font-size: medium;"></span>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote></blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</div>
+</section>
+<section id="sa2b38_333" class="feedback js-hidden">
+<div id="taf38_343" class=" iDevice_content"><span style="font-size: medium;"><b>¡Incorrecto!</b></span><br /><span style="font-size: medium;"><b>2/6 ≠ 3/6</b></span><span style="font-size: medium;"></span></div>
+</section>
+<section id="sa3b38_333" class="feedback js-hidden">
+<div id="taf38_346" class=" iDevice_content"><span style="font-size: medium;"><b>¡Incorrecto!</b></span><br /><span style="font-size: medium;"><b>4/6 ≠ 2/6</b></span> <br /><span style="font-size: medium;"><b></b></span></div>
+</section>
+</section>
+</form>
+<section class="iDevice_solution feedback js-hidden">
+<h1>Solución</h1>
+<ol>
+<li><a href="#answer-38_336">Incorrecto</a><span> (<a href="#sa0b38_333">Retroalimentación</a>)</span></li>
+<li><a href="#answer-38_340">Opción correcta</a><span> (<a href="#sa1b38_333">Retroalimentación</a>)</span></li>
+<li><a href="#answer-38_343">Incorrecto</a><span> (<a href="#sa2b38_333">Retroalimentación</a>)</span></li>
+<li><a href="#answer-38_346">Incorrecto</a><span> (<a href="#sa3b38_333">Retroalimentación</a>)</span></li>
+</ol>
+</section>
+</section>
+</div>
+</div>
+<footer id="siteFooter">Plan Ceibal - Creative Commons: Reconocimiento - No comercial - Compartir bajo la misma licencia</footer>
+<p>
+<script type="text/javascript" src="my_js.js"></script>
+</p></div>
+</div>
+</div>
+</div>
+</div>
+</article>
+<article class="iDevice_wrapper ClozeIdevice em_iDevice em_iDevice_question" id="id15">
+<div class="iDevice emphasis1" >
+<header class="iDevice_header"><h1 class="iDeviceTitle">Fracciones equivalentes II</h1></header>
+<div class="iDevice_inner">
+<div class="iDevice_content_wrapper">
+<section id="ta15_116" class="block instructions iDevice_content">
+<p>Halla el valor de la "x" y la "y" para que las fracciones sean equivalentes:</p>
+</section>
+
+    <section class="activity" id="activity-15_117"><form name="cloze-form-15_117" action="#" class="activity-form cloze-activity-form"><div id="cloze15_117"><input type="hidden" name="clozeFlag15_117.strictMarking" id="clozeFlag15_117.strictMarking" value="true"/>
+<input type="hidden" name="clozeFlag15_117.checkCaps" id="clozeFlag15_117.checkCaps" value="false"/>
+<input type="hidden" name="clozeFlag15_117.instantMarking" id="clozeFlag15_117.instantMarking" value="true"/>
+<input type="hidden" name="clozeVar15_117.feedbackId" id="clozeVar15_117.feedbackId" value="ta15_118"/>
+<p><span class="exe-math code-only exe-math-engine position-center"><span class="exe-math-code">a. \frac{4}{5}=\frac{x}{120}</span></span></p>
+<p><span class="exe-math code-only exe-math-engine position-center"><span class="exe-math-code">b. \frac{4}{6}=\frac{10}{x}</span></span></p>
+<p><span class="exe-math code-only exe-math-engine position-center"><span class="exe-math-code">c. \frac{3}{15}=\frac{x}{35}=\frac{11}{y}</span></span></p>
+<p><span class="exe-math code-only exe-math-engine position-center"><span class="exe-math-code">d. \frac{6}{9}=\frac{10}{x}=\frac{y}{21}</span></span></p>
+<p><span style="text-align: center; font-size: 15.96px;">a. x =  <label for="clozeBlank15_117.0" class="sr-av">Rellenar huecos (1):</label><input class="autocomplete-off" type="text" value="" id="clozeBlank15_117.0" style="width:2ch" onkeyup="$exe.cloze.change(this)" /><span style="display:none" id="clozeAnswer15_117.0">JXUwMDYxJXUwMDBm
+</span>  </span></p>
+<p><span style="text-align: center; font-size: 15.96px;">b. x =  <label for="clozeBlank15_117.1" class="sr-av">Rellenar huecos (2):</label><input class="autocomplete-off" type="text" value="" id="clozeBlank15_117.1" style="width:2ch" onkeyup="$exe.cloze.change(this)" /><span style="display:none" id="clozeAnswer15_117.1">JXUwMDY5JXUwMDA0
+</span>   </span></p>
+<p><span style="text-align: center; font-size: 15.96px;">c. x =  <label for="clozeBlank15_117.2" class="sr-av">Rellenar huecos (3):</label><input class="autocomplete-off" type="text" value="" id="clozeBlank15_117.2" style="width:1ch" onkeyup="$exe.cloze.change(this)" /><span style="display:none" id="clozeAnswer15_117.2">JXUwMDZm
+</span>  ; y =  <label for="clozeBlank15_117.3" class="sr-av">Rellenar huecos (4):</label><input class="autocomplete-off" type="text" value="" id="clozeBlank15_117.3" style="width:2ch" onkeyup="$exe.cloze.change(this)" /><span style="display:none" id="clozeAnswer15_117.3">JXUwMDZkJXUwMDAw
+</span>  </span></p>
+<p><span style="text-align: center; font-size: 15.96px;">d. x =  <label for="clozeBlank15_117.4" class="sr-av">Rellenar huecos (5):</label><input class="autocomplete-off" type="text" value="" id="clozeBlank15_117.4" style="width:2ch" onkeyup="$exe.cloze.change(this)" /><span style="display:none" id="clozeAnswer15_117.4">JXUwMDY5JXUwMDA0
+</span>  ; y =  <label for="clozeBlank15_117.5" class="sr-av">Rellenar huecos (6):</label><input class="autocomplete-off" type="text" value="" id="clozeBlank15_117.5" style="width:2ch" onkeyup="$exe.cloze.change(this)" /><span style="display:none" id="clozeAnswer15_117.5">JXUwMDY5JXUwMDA1
+</span>  </span></p><div class="block iDevice_buttons"><p><input type="button" value="Averiguar la puntuación" id="getScore15_117" onclick="$exe.cloze.showScore('15_117')" /><input type="button" name="feedback15_117" value="Mostrar retroalimentación" class="feedbackbutton" onclick="$exe.cloze.toggleFeedback('15_117',this)" />
+ <input type="button" name="15_117showAnswersButton" value="Mostrar/Eliminar las respuestas" style="" id="showAnswersButton15_117" onclick="$exe.cloze.toggleAnswers('15_117')" />
+<span class="js-hidden js-warning">Habilitar JavaScript</span></p></div><div id="clozeScore15_117"></div></div></form></section>
+    <section id="ta15_118" class="feedback js-feedback iDevice_content" style="display:none">
+<p>Bien, entiendes el concepto de fracciones equivalentes, ¡sigue adelante!</p>
+</section>
+</div>
+</div>
+</div>
+</article>
+<article class="iDevice_wrapper ClozeIdevice em_iDevice em_iDevice_question" id="id12">
+<div class="iDevice emphasis1" >
+<header class="iDevice_header"><h1 class="iDeviceTitle">Fracción irreducible</h1></header>
+<div class="iDevice_inner">
+<div class="iDevice_content_wrapper">
+<section id="ta12_116" class="block instructions iDevice_content">
+<p>Halla la fracción irreducible:</p>
+</section>
+
+    <section class="activity" id="activity-12_117"><form name="cloze-form-12_117" action="#" class="activity-form cloze-activity-form"><div id="cloze12_117"><input type="hidden" name="clozeFlag12_117.strictMarking" id="clozeFlag12_117.strictMarking" value="true"/>
+<input type="hidden" name="clozeFlag12_117.checkCaps" id="clozeFlag12_117.checkCaps" value="false"/>
+<input type="hidden" name="clozeFlag12_117.instantMarking" id="clozeFlag12_117.instantMarking" value="true"/>
+<input type="hidden" name="clozeVar12_117.feedbackId" id="clozeVar12_117.feedbackId" value="ta12_118"/>
+<p>a.  6/12 =     <label for="clozeBlank12_117.0" class="sr-av">Rellenar huecos (1):</label><input class="autocomplete-off" type="text" value="" id="clozeBlank12_117.0" style="width:3ch" onkeyup="$exe.cloze.change(this)" /><span style="display:none" id="clozeAnswer12_117.0">JXUwMDZiJXUwMDFjJXUwMDE5
+</span>   </p>
+<p>b.  54/81 =    <label for="clozeBlank12_117.1" class="sr-av">Rellenar huecos (2):</label><input class="autocomplete-off" type="text" value="" id="clozeBlank12_117.1" style="width:3ch" onkeyup="$exe.cloze.change(this)" /><span style="display:none" id="clozeAnswer12_117.1">JXUwMDZhJXUwMDFkJXUwMDFj
+</span>   </p>
+<p>c.  40/320 =    <label for="clozeBlank12_117.2" class="sr-av">Rellenar huecos (3):</label><input class="autocomplete-off" type="text" value="" id="clozeBlank12_117.2" style="width:3ch" onkeyup="$exe.cloze.change(this)" /><span style="display:none" id="clozeAnswer12_117.2">JXUwMDY5JXUwMDFlJXUwMDE3
+</span>   </p>
+<p>d.  180/640 =    <label for="clozeBlank12_117.3" class="sr-av">Rellenar huecos (4):</label><input class="autocomplete-off" type="text" value="" id="clozeBlank12_117.3" style="width:4ch" onkeyup="$exe.cloze.change(this)" /><span style="display:none" id="clozeAnswer12_117.3">JXUwMDYxJXUwMDE2JXUwMDFjJXUwMDAx
+</span>   </p><div class="block iDevice_buttons"><p><input type="button" value="Averiguar la puntuación" id="getScore12_117" onclick="$exe.cloze.showScore('12_117')" /><input type="button" name="feedback12_117" value="Mostrar retroalimentación" class="feedbackbutton" onclick="$exe.cloze.toggleFeedback('12_117',this)" />
+ <input type="button" name="12_117showAnswersButton" value="Mostrar/Eliminar las respuestas" style="" id="showAnswersButton12_117" onclick="$exe.cloze.toggleAnswers('12_117')" />
+<span class="js-hidden js-warning">Habilitar JavaScript</span></p></div><div id="clozeScore12_117"></div></div></form></section>
+    <section id="ta12_118" class="feedback js-feedback iDevice_content" style="display:none">
+<p>Sabes simplificar, ¡prueba superada!</p>
+</section>
+</div>
+</div>
+</div>
+</article>
+<article class="iDevice_wrapper GeoGebraIdevice em_iDevice" id="id16">
+<div class="iDevice emphasis1" >
+<header class="iDevice_header iDevice_header_noIcon"><h1 class="iDeviceTitle">Común denominador</h1></header>
+<div class="iDevice_inner">
+<div class="iDevice_content_wrapper">
+<div id="ta16_146_2" class="block iDevice_content">
+<div class="auto-geogebra auto-geogebra-ky255MVt auto-geogebra-width-943 auto-geogebra-height-577 language-es auto-geogebra-scale-100"><div class="auto-geogebra-instructions"><p>Aquí tenéis una actividad de Geogebra para practicar el cálculo del denominador común de dos fracciones:</p></div><p><a href="https://www.geogebra.org/m/ky255MVt" target="_blank">https://www.geogebra.org/m/ky255MVt (Ventana nueva)</a></p><div class="auto-geogebra-author js-hidden">Matematicaula,https%3A//ggbm.at/7336513,Com%FAn%20denominador,1,Autor%EDa</div></div>
+</div>
+</div>
+</div>
+</div>
+</article>
+<div id="packageLicense" class="cc cc-by-sa">
+<p><span>Obra publicada con</span> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Licencia Creative Commons Reconocimiento Compartir igual 4.0</a></p>
+</div>
+</section>
+</div>
+<div id='bottomPagination'>
+<nav class="pagination noprt">
+<a href="comparacin_de_fracciones.html" class="prev"><span><span>&laquo; </span>Anterior</span></a> <span class="sep">| </span><a href="operaciones_con_fracciones.html" class="next"><span>Siguiente<span> &raquo;</span></span></a>
+</nav>
+</div>
+<footer id="siteFooter">2ESO</footer></div>
+<p id="made-with-eXe"><a href="https://exelearning.net/" target="_blank" rel="noopener"><span>Creado con eXeLearning<span> (Ventana nueva)</span></span></a></p><script type="text/javascript" src="_style_js.js"></script></body></html>
